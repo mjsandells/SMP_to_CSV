@@ -476,7 +476,7 @@ class SMP(object):
         _,_,r,_,_ = stats.linregress(f,d)
         
         # first, check for presence of linear trend (indicates a systematic error with the SMP device)
-        if ((r**2) >= 0.7) or (self.header['Offset [N]'] <> 0):  # also check for offset recorded by SMP device
+        if ((r**2) >= 0.7) or (self.header['Offset [N]'] != 0):  # also check for offset recorded by SMP device
             self.qFlags['C2'] = True
             
         # second, check for "dampened or disturbed SMP force micro-variance"
@@ -587,16 +587,6 @@ class SMP(object):
             header['Comment'] = ""
         else:
             header['Comment'] = header['Comment'].split("\x00")[0]
-        
-        # strip trailing whitespace from some value strings
-        header['File Name'] = header['File Name'].split("\x00")[0]	
-        header['Amp Serial'] = header['Amp Serial'].split("\x00")[0]
-        header['Amp Type'] = header['Amp Type'].split("\x00")[0]
-        header['Sensor Serial'] = header['Sensor Serial'].split("\x00")[0]
-        header['Sensor Type'] = header['Sensor Type'].split("\x00")[0]
-        header['Northing'] = header['Northing'].split("\x00")[0]
-        header['Easting'] = header['Easting'].split("\x00")[0]
-        header['GPS State'] = header['GPS State'].split("\x00")[0]
         
         # add sign to coordinates if required
         if header["Northing"] == "S":

@@ -1,5 +1,5 @@
 import numpy as np
-from pylab import rms_flat
+#from pylab import rms_flat
 
 def gen_msCoef(dens, ssa):
     '''
@@ -37,6 +37,12 @@ def rolling_window(a, window, fun=None, pad=False):
         padSize = np.abs(rWindow.shape[0] - a.shape[0])/2
         rWindow = np.lib.pad(rWindow, (padSize, padSize), 'constant', constant_values=np.nan)
     return rWindow
+
+
+def rms_flat(x):
+    # Needed as pylab function deprecated
+    # Returns root mean square. Think x is 1D, but will check
+    return np.sqrt(np.mean(x**2))
 
 
 # ripped straight from https://sourceforge.net/projects/pyntreader/
@@ -111,6 +117,7 @@ def xcorr(x, y=None, maxlags=None, norm='biased'):
         res = res[lags] / (float(N)-abs(np.arange(-N+1, N)))[lags]
     elif norm == 'coeff':        
         Nf = float(N)
+        print (x)#MJS
         rms = rms_flat(x) * rms_flat(y)
         res = res[lags] / rms / Nf
     else:
