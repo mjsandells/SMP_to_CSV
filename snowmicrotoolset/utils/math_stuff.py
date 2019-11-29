@@ -117,7 +117,6 @@ def xcorr(x, y=None, maxlags=None, norm='biased'):
         res = res[lags] / (float(N)-abs(np.arange(-N+1, N)))[lags]
     elif norm == 'coeff':        
         Nf = float(N)
-        print (x)#MJS
         rms = rms_flat(x) * rms_flat(y)
         res = res[lags] / rms / Nf
     else:
